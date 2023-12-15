@@ -15,4 +15,21 @@ The project consists of a demo program, to test the extraction mechanism and the
 Web scraping need a proper tools to execute and all the process will be automated by proper algorithms. Below are the tools used in this project.  
 
 1. Jupyter Notebook : A open-sourced web-based platform consists multuiple programming language including Python.
-2. BeautifulSoup : A python package or built-in library for parsing HTML and XML documents. 
+2. BeautifulSoup : A python package or built-in library for parsing HTML and XML documents.
+
+## Data Extraction
+In this section, we will start the extraction process. We will using [realtor.com](https://www.realtor.com/), a platform that sells property all around the world. This website really helps us to meet the objectives as it is available for scraping. Response [200] is an output that indicates that we successfully request the website for scrapping.  
+
+![image](https://github.com/MohdAfiq98/Web-Scraping-Online/assets/119799325/27bb15aa-6421-4c86-9f9d-e4a467ef2f32)
+
+The project consist of two different jupyternotebook files where, the first file named 'realtor_scrap_demo.ipynb' is the demo where we will test the extraction algorithm by extracting only one property. The second file named 'realtor_scrap_project.ipynb' will be the finalised programme where we successfully extract all the property data.
+
+As for the extraction process, we are interested in extracting:
+1. listing id
+2. list_title
+3. price
+4. property_type
+5. date
+6. agent_name
+7. agency_name
+
