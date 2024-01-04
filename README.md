@@ -38,12 +38,219 @@ In this section, we will start the extraction process. We will using [realtor.co
 
 The project consist of two different jupyternotebook files where, the first file named 'realtor_scrap_demo.ipynb' is the demo where we will test the extraction algorithm by extracting only one property. The second file named 'realtor_scrap_project.ipynb' will be the finalised programme where we successfully extract all the property data.
 
-As for the extraction process, we are interested in extracting:
-1. listing id
-2. list_title
-3. price
-4. property_type
-5. date
-6. agent_name
-7. agency_name
+As for the extraction process, we are interested in extracting listing id, list_title, price, property_type. date, agent_name, agency_name. We will extract all this information by refering the html tags from the website. To view the html tags, we open the developer tools to have more insights for each particular tags of the data that we want.  
+
+![image](https://github.com/MohdAfiq98/Web-Scraping-Online/assets/119799325/414cc6ef-e0c6-4b28-8261-7c1e23f49aeb)
+_Image above is the screenshot of the parts from the developer tools to extract data using HTML tags_  
+
+Below are the python code demos to extract the data for a single property listing.
+
+```python
+# Extract List ID
+new_soup.find('span', attrs={'class':'listing-id'}).text
+```
+![image](https://github.com/MohdAfiq98/Web-Scraping-Online/assets/119799325/8f04907e-5069-446a-9f57-324bf66cf608)
+
+```python
+# Extract Property Tittle
+new_soup.find('h3', attrs={'class':'lbxu17-2 qvrsN description-title'}).text
+```
+![image](https://github.com/MohdAfiq98/Web-Scraping-Online/assets/119799325/8bad9dc1-5f5f-4cbe-a791-4de94cbf993f)
+
+```python
+#Extract Property Price
+new_soup.find('div', attrs={'class':'sc-10v3xoh-1 cqrlhJ'}).text
+```
+![image](https://github.com/MohdAfiq98/Web-Scraping-Online/assets/119799325/3328a59d-f414-42c6-9184-eb5053b4ddc9)
+
+```python
+# Extract Property Type
+new_soup.find('div', attrs={'class':'sc-12iqlu8-2 dPeBQf basicInfoValue'}).text
+```
+![image](https://github.com/MohdAfiq98/Web-Scraping-Online/assets/119799325/005630ee-dc30-401f-937f-875f0a6f5dc6)
+
+```python
+#Extract Date Post and Updated
+new_soup.find('div',attrs={'class':'data'}).text
+```
+![image](https://github.com/MohdAfiq98/Web-Scraping-Online/assets/119799325/733b48c4-9688-4264-bc55-bc44ecf7ed15)
+
+```python
+#Extract Agent Name
+new_soup.find('div', attrs={'class':'agent-name'}).text
+```
+![image](https://github.com/MohdAfiq98/Web-Scraping-Online/assets/119799325/120d7255-bd8d-49b6-ad95-6cfed32b7f90)
+
+```python
+# Extract Agency Name
+new_soup.find('p').text
+```
+![image](https://github.com/MohdAfiq98/Web-Scraping-Online/assets/119799325/2092fabe-6ef1-477f-a646-68db3b6b8155)
+
+After successfully extracted data from a single listing, we proceed to extract all property listing from the whole page by programming a full code. The full program was run in different jupyter notebook file named 'Realtor Scrap Project.ipynb'. We developed a full programm to extract all the data from numerous of property listing. We assigned functions specifically to obtain the automation in extracting all the data. 
+
+```python
+# Function to extract property tille
+def get_property_title(soup):
+    try:
+        title = soup.find('h3', attrs={'class':'lbxu17-2 qvrsN description-title'})
+        title_value = title.text
+        
+    except:
+        title_value = ''
+        
+    return title_value
+
+# Function to extract property listing id
+def get_property_id(soup):
+    try:
+        id = soup.find('span', attrs={'class':'listing-id'})
+        id_value = id.text
+    except:
+        id_value = ''
+    
+    return id_value
+
+    
+# Function to extract property price
+def get_price(soup):
+    try:
+        price = soup.find('div', attrs={'class':'sc-10v3xoh-1 cqrlhJ'})
+        price_value = price.text
+    except:
+        price_value = ''
+        
+    return price_value
+    
+# Extract property type
+def get_property_type(soup): 
+    div = soup.findAll('div', attrs={'class':'sc-12iqlu8-2 dPeBQf basicInfoValue'})
+    try:
+        property_type = div[0]
+        property_type_value = property_type.text
+    except: 
+        property_type_value = ''
+        
+    return property_type_value
+    
+
+# Extract post and update date
+def get_date(soup):
+    try:
+        date = soup.find('div',attrs={'class':'data'})
+        date_value = date.text
+    except
+        date_value = ''
+        
+    return date_value
+
+# Extract Agent Name
+def get_agent(soup):
+    try:
+        agent = soup.find('div', attrs={'class':'agent-name'})
+        agent_value = agent.text
+    except:
+        agent_value = ''
+    
+    return agent_value
+
+# Extract agency name
+def get_agency(soup):
+    try:
+        agency = soup.find('p')
+        agency_value = agency.text
+    except:
+        agency_value = ''
+        
+    return agency_value
+```
+
+The main programme as below
+
+```python
+if __name__ == '__main__':
+    
+    # add user agent
+    headers = ({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"})
+    
+    # webpage url
+    url = 'https://www.realtor.com/international/my//'
+    
+    # HTTP requests
+    webpage = requests.get(url,headers=headers)
+    
+    # soup object contain html
+    soup = BeautifulSoup(webpage.content, 'html.parser')
+    
+    # Fetch all tag that contains list of object
+    links = soup.findAll('a', attrs={'class':'sc-1dun5hk-0 cOiOrj'})
+    
+    # Store the links
+    links_list = []
+    
+    # Loop for extracting links from tag objects
+    for link in links:
+        links_list.append(link.get('href'))
+        
+    d = {'list_id':[], 'list_title':[],'price':[], 'property_type':[],
+         'date':[], 'agent_name':[], 'agency_name':[]}
+    
+
+    # loop for extracting property details from each link
+    for link in links_list:
+        new_webpage = requests.get("https://www.realtor.com/" + link, headers=headers)
+        new_soup = BeautifulSoup(new_webpage.content, 'html.parser')
+        
+        d['list_id'].append(get_property_id(new_soup))
+        d['list_title'].append(get_property_title(new_soup))
+        d['price'].append(get_price(new_soup))
+        d['property_type'].append(get_property_type(new_soup))
+        d['date'].append(get_date(new_soup))
+        d['agent_name'].append(get_agent(new_soup))
+        d['agency_name'].append(get_agency(new_soup))
+        
+    property_df = pd.DataFrame.from_dict(d)
+    property_df.to_csv("property_list_data.csv", header=True, index=False)
+```
+All data is successfully extracted. Snippet of result can be seen below. The full data is stored in file named 'property_listed_data.csv'.  
+
+![image](https://github.com/MohdAfiq98/Web-Scraping-Online/assets/119799325/4446214e-9fa8-40f5-af71-f6b42e1243cc)
+
+
+### Data Cleaning
+The data extracted after the data mining process is not standardize to its format. In this section, all data are cleaned to meet appropriate format and standardized. The data cleaning process was inititate using python again in the jupyter notebook platform. The csv filed named 'property_listed_data.csv' that obtained previously again imported to jupyter notebook to proceed with the data cleaning process. As result, we want the data structure from,  
+
+![image](https://github.com/MohdAfiq98/Web-Scraping-Online/assets/119799325/1deae811-84f2-43bc-91a6-724d0032e54f)
+
+to the clean and standardized result,
+
+![image](https://github.com/MohdAfiq98/Web-Scraping-Online/assets/119799325/92522efb-9a1b-4451-b881-c1c8ece8e8dd)
+
+We obtained the above result by running the code below
+
+```python
+# Standardize price column
+data['price'] = data['price'].str.lstrip('MYR')
+
+# Standardize date column
+data['date'] = data['date'].str.lstrip('Published on:')
+data[['date_published','date_updated']] = data['date'].str.split('Last updated on:',1,expand=True)
+
+data = data.drop(columns='date')
+
+# Standardize agency column
+data['agency_name'] = data['agency_name'].str.strip('Email enquiry to')
+data['agency_name'] = data['agency_name'].str.upper()
+
+# remove null from title column
+data['list_title'] = data['list_title'].str.strip('null,')
+data['list_title'] = data['list_title'].str.strip('null, ')
+data
+```
+
+After cleaning process, the data was exported into csv file named 'property_listing_data_cleaned'.
+
+
+
+
 
