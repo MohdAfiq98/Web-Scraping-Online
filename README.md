@@ -1,15 +1,27 @@
 # Web-Scraping-Online
 
 ## Table of Contents
+- [Introduction](#Introdiction)
+- [Objective](#Objective)
+- [Tools](#Tools)
+- [Methodology](#Methodology)
+   - [Import Appopriate Library](#Import-Appropriate-Library)  
+   - [Data Extraction](#Data-Extraction)
+   - [Data Cleaning](#Data_Cleaning)
+- [Conclusion](#Conclusion)
+- [Limitation](#Limitation)
+- [Reference](#Reference)
 
 ## Introduction
 Web scraping is a process of data extraction from websites using bots or tools retrieving content based on their html tags. The data then will be stored in database for observation or analysis purposes.
 
 Web scraping allows for the quick and efficient extraction of data in the form of information from various sources. Hence, the data obtained is more up-to-date compared using secondary data which will be limited in the field of study.
 
+The project consists of a demo program, to test the extraction mechanism and the full progran that will demonstrate the full extraction process. At the end of the project, we successfully extract the data from one page and export the data to csv file, before proceed with data cleaning using python.
+
+## Objective
 As for this project, the objective is 1. to extract data from a real estate website and convert the findings into a database and 2. data cleaning and standardization for better data view. Python along with BeautifulSoup library is used to complete the task. The website choosen will be the Realtor.com website, a platform sells property around the world. In this field of study, property in Malaysia will be observed.
 
-The project consists of a demo program, to test the extraction mechanism and the full progran that will demonstrate the full extraction process. At the end of the project, we successfully extract the data from one page and export the data to csv file, before proceed with data cleaning using python.
 
 ## Tools
 Web scraping need a proper tools to execute and all the process will be automated by proper algorithms. Below are the tools used in this project.  
@@ -218,7 +230,7 @@ All data is successfully extracted. Snippet of result can be seen below. The ful
 
 
 ### Data Cleaning
-The data extracted after the data mining process is not standardize to its format. In this section, all data are cleaned to meet appropriate format and standardized. The data cleaning process was inititate using python again in the jupyter notebook platform. The csv filed named 'property_listed_data.csv' that obtained previously again imported to jupyter notebook to proceed with the data cleaning process. As result, we want the data structure from,  
+The data extracted is not standardize to its format. In this section, all data are cleaned to meet appropriate format and standardized. The data cleaning process was inititate using python again in the jupyter notebook platform. The csv filed named 'property_listed_data.csv' that obtained previously again imported to jupyter notebook to proceed with the data cleaning process. As result, data structure from,  
 
 ![image](https://github.com/MohdAfiq98/Web-Scraping-Online/assets/119799325/1deae811-84f2-43bc-91a6-724d0032e54f)
 
@@ -249,6 +261,21 @@ data
 ```
 
 After cleaning process, the data was exported into csv file named 'property_listing_data_cleaned'.
+
+## Conclusion 
+The conclusion from the whole project is we met the objective to extract data from a real estate website, converting the findings into a database together with data cleaning and standardizing for better data view is successfully achieved. All data are extracted accordingly and stored successfully with appropriate specification align with our goals.
+
+## Limitation
+The limitations is the real time update from the web effects the data extraction process. This is because the web keep updating with latest property listing every day, even in hours. Hence, further improvement should be taken by updating the code to always extract the data by consistenly extract data every day so the data extraction is always up to date. 
+
+Moreover, limited in terms of web scrapping accessibility. This is because not all website wants their data being extracted due to safety and business purposes. As an example, other famous property listing platform like Iproperty and PropertyGuru are restricted from data miners as they want to keep their intergrity and business purpose. Additional web scrapping tools or extension need to be used in order to have more access in data mining activity.
+
+## ReferenceS
+
+- Scrape Amazon Data using Python (Step by Step Guide).[https://www.youtube.com/watch?v=2hPCX-p_X8Q&list=WL&index=27&t=812s]
+- Amazon Web Scraping Using Python | Data Analyst Portfolio Project.[https://www.youtube.com/watch?v=HiOtQMcI5wg&t=1838s]
+- StackOverflow
+- W3School
 
 
 
